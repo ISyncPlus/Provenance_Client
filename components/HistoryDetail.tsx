@@ -108,7 +108,7 @@ export default function HistoryDetail({ entry, onReport }: HistoryDetailProps) {
         const tier = LOCATION_TIERS[source];
         const attested = entry.location ?? null;
         const coords =
-          source === "embedded"
+          source === "embedded" || !attested
             ? entry.metadata.gps.latitude != null &&
               entry.metadata.gps.longitude != null
               ? formatCoordinatePair(
@@ -116,9 +116,7 @@ export default function HistoryDetail({ entry, onReport }: HistoryDetailProps) {
                   entry.metadata.gps.longitude
                 )
               : null
-            : attested
-              ? formatCoordinatePair(attested.latitude, attested.longitude)
-              : null;
+            : formatCoordinatePair(attested.latitude, attested.longitude);
         const accuracy = formatAccuracy(attested?.accuracyMetres ?? null);
 
         return (

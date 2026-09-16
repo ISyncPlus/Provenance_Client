@@ -545,7 +545,7 @@ export default function SubmitWorkspace({
               const tier = LOCATION_TIERS[source];
               const attested = entry.location;
               const coords =
-                source === "embedded"
+                source === "embedded" || !attested
                   ? entry.metadata.gps.latitude != null &&
                     entry.metadata.gps.longitude != null
                     ? formatCoordinatePair(
@@ -553,9 +553,7 @@ export default function SubmitWorkspace({
                         entry.metadata.gps.longitude
                       )
                     : null
-                  : attested
-                    ? formatCoordinatePair(attested.latitude, attested.longitude)
-                    : null;
+                  : formatCoordinatePair(attested.latitude, attested.longitude);
               const accuracy = formatAccuracy(attested?.accuracyMetres ?? null);
 
               return (

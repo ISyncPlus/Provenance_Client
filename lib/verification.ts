@@ -51,10 +51,10 @@ export const verifyImage = (
     attestation?.source === "witnessed" &&
     isUsableCoordinate(attestation.latitude, attestation.longitude);
 
-  const locationSource: LocationSource | null = embedded
-    ? "embedded"
-    : witnessedFix
-      ? "witnessed"
+  const locationSource: LocationSource | null = witnessedFix
+    ? "witnessed"
+    : embedded
+      ? "embedded"
       : attestation
         ? "attested"
         : null;
