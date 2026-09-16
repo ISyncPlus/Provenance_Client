@@ -436,8 +436,8 @@ export default function StudentDashboard() {
         {/* Deliberately off-balance: the bench takes the larger share, because
             checking a photograph is the task and the history is the reference
             beside it. */}
-        <div className="grid gap-6 lg:grid-cols-12 lg:gap-8">
-          <Reveal index={2} mode="scroll" className="lg:col-span-7">
+        <div className="grid justify-items-center gap-6 lg:grid-cols-12 lg:gap-8 lg:justify-items-stretch">
+          <Reveal index={2} mode="scroll" className="w-full lg:col-span-7">
             <SubmitWorkspace
               phase={phase}
               previewUrl={previewUrl}
@@ -456,7 +456,7 @@ export default function StudentDashboard() {
             />
           </Reveal>
 
-          <Reveal index={3} mode="scroll" className="lg:col-span-5">
+          <Reveal index={3} mode="scroll" className="w-full lg:col-span-5">
             <Card
               mark="File 02"
               title="Your submissions"

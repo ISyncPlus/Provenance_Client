@@ -169,8 +169,19 @@ export const createSubmission = async (input: CreateSubmissionInput) => {
     );
     if (!rejectedTheBody || !carriedExtension) throw error;
 
-    const { captureMode: _mode, location: _location, ...core } = input;
-    return await send(core);
+    const { captureMode: _mode, location, ...core } = input;
+    const legacyMetadata =
+      input.captureMode === "witnessed" && location
+        ? {
+            ...core.metadata,
+            latitude: location.latitude,
+            longitude: location.longitude,
+            gpsTagsPresent: true,
+            locationName: location.locationName ?? core.metadata.locationName,
+          }
+        : core.metadata;
+
+    return await send({ ...core, metadata: legacyMetadata });
   }
 };
 
