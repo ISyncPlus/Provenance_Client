@@ -363,7 +363,7 @@ export default function StudentDashboard() {
                 </div>
               ))}
             </div>
-            <div className="mt-4 grid gap-6 lg:grid-cols-12">
+            <div className="mx-auto mt-4 grid w-full max-w-md gap-6 sm:max-w-xl lg:max-w-none lg:grid-cols-12">
               <div className="shimmer h-96 rounded-lg bg-well lg:col-span-7" />
               <div className="shimmer h-96 rounded-lg bg-well lg:col-span-5" />
             </div>
@@ -432,11 +432,12 @@ export default function StudentDashboard() {
         }
       />
 
-      <Field pad="md">
+      <Field pad="md" className="px-2 sm:px-4 lg:px-0">
         {/* Deliberately off-balance: the bench takes the larger share, because
             checking a photograph is the task and the history is the reference
-            beside it. */}
-        <div className="grid justify-items-center gap-6 lg:grid-cols-12 lg:gap-8 lg:justify-items-stretch">
+            beside it. On mobile, constrain to a clean, comfortable reading measure
+            so the cards never feel blown out or edge-to-edge. */}
+        <div className="mx-auto grid w-full max-w-md gap-6 sm:max-w-xl lg:max-w-none lg:grid-cols-12 lg:gap-8">
           <Reveal index={2} mode="scroll" className="w-full lg:col-span-7">
             <SubmitWorkspace
               phase={phase}

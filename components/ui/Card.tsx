@@ -76,7 +76,7 @@ export default function Card({
 
   return (
     <div
-      className={`rounded-[0.875rem] border border-line bg-well p-1.5 shadow-lift ${className}`}
+      className={`w-full min-w-0 rounded-[0.875rem] border border-line bg-well p-1.5 shadow-lift ${className}`}
     >
       {card}
     </div>

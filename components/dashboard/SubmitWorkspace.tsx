@@ -250,7 +250,7 @@ export default function SubmitWorkspace({
             <button
               type="button"
               onClick={onCapture}
-              className="group mb-4 flex min-h-14 w-full items-center justify-between gap-3 rounded-full bg-accent py-2 pl-6 pr-2 text-accent-ink shadow-accent transition-transform duration-200 active:scale-[0.99]"
+              className="group mb-4 flex min-h-12 sm:min-h-14 w-full items-center justify-between gap-3 rounded-full bg-accent py-2 pl-4 pr-2 sm:pl-6 text-accent-ink shadow-accent transition-transform duration-200 active:scale-[0.99]"
             >
               <span className="flex min-w-0 flex-col items-start">
                 <span className="t-callout font-semibold">Capture now</span>
@@ -258,12 +258,12 @@ export default function SubmitWorkspace({
                   Strongest evidence
                 </span>
               </span>
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-black/15 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105">
+              <span className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-black/15 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105">
                 <Camera size={18} />
               </span>
             </button>
 
-            <div className="mb-4 flex items-center gap-4">
+            <div className="mb-4 flex items-center gap-3 sm:gap-4">
               <span className="h-px flex-1 bg-rule" />
               <span className="t-mark text-ink-3">or submit an existing file</span>
               <span className="h-px flex-1 bg-rule" />
@@ -281,7 +281,7 @@ export default function SubmitWorkspace({
               }}
               onDragOver={(event) => event.preventDefault()}
               onDrop={handleDrop}
-              className={`group relative flex cursor-pointer flex-col items-center justify-center gap-3 sm:gap-4 overflow-hidden rounded-md border border-dashed px-4 py-8 sm:px-6 sm:py-14 text-center transition-colors duration-200 ${
+              className={`group relative flex cursor-pointer flex-col items-center justify-center gap-3 sm:gap-4 overflow-hidden rounded-md border border-dashed px-4 py-6 sm:px-6 sm:py-14 text-center transition-colors duration-200 ${
                 dragging
                   ? "border-accent bg-accent-wash"
                   : "border-line-strong hover:bg-well"
