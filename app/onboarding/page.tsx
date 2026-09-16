@@ -76,7 +76,7 @@ export default function OnboardingPage() {
     }
   };
 
-  if (loading || !profile) {
+  if (loading || !profile || profile.onboarded) {
     return (
       <PageShell>
         <Field pad="none" className="pt-16">
