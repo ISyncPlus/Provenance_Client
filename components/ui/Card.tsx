@@ -46,8 +46,8 @@ export default function Card({
       }`}
     >
       {title || actions || mark ? (
-        <header className="flex flex-wrap items-start justify-between gap-3 border-b border-rule bg-surface-2/50 px-4 py-3.5 sm:px-5 sm:py-4">
-          <div className="min-w-0">
+        <header className="flex flex-wrap items-start justify-between gap-3 border-b border-rule bg-surface-2/50 px-4 py-3.5 sm:px-5 sm:py-4 max-sm:text-center max-sm:justify-center">
+          <div className="min-w-0 max-sm:w-full">
             {mark ? (
               <p className="t-mark mb-1 text-accent-deep">{mark}</p>
             ) : null}
@@ -57,7 +57,7 @@ export default function Card({
             ) : null}
           </div>
           {actions ? (
-            <div className="flex shrink-0 flex-wrap items-center gap-2">
+            <div className="flex shrink-0 flex-wrap items-center justify-center gap-2 max-sm:w-full">
               {actions}
             </div>
           ) : null}

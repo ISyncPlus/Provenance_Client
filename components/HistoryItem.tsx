@@ -32,7 +32,7 @@ export default function HistoryItem({
     <Pressable
       onClick={onOpen}
       aria-label={`Open verification details for ${entry.fileName}`}
-      className="group relative flex w-full items-center gap-3.5 py-3 pl-3 pr-2 transition-colors duration-200 hover:bg-well"
+      className="group relative flex w-full items-center gap-2.5 py-3 pl-3 pr-2 transition-colors duration-200 hover:bg-well sm:gap-3.5"
     >
       {/* The wipe marks which row the pointer owns without moving anything. */}
       <span
@@ -64,7 +64,12 @@ export default function HistoryItem({
         </span>
       </span>
 
-      <StatusBadge status={entry.status} dot />
+      <span className="shrink-0 max-sm:hidden">
+        <StatusBadge status={entry.status} dot />
+      </span>
+      <span className="t-mark shrink-0 sm:hidden">
+        {entry.status}
+      </span>
       <ChevronRight
         size={15}
         className="shrink-0 text-ink-3 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5"

@@ -7,7 +7,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { signOut } from "../lib/auth-client";
 import type { Profile } from "../lib/api";
 import ThemeToggle from "./ui/ThemeToggle";
-import { ArrowRight, SignOut } from "./ui/icons";
+import { ArrowRight, Close, SignOut } from "./ui/icons";
 import { BrandMark } from "./ui/BrandLogo";
 import UserAvatar from "./UserAvatar";
 import { fade, springMove, springSnappy } from "../lib/motion";
@@ -150,7 +150,7 @@ export default function AppNavbar({ session }: AppNavbarProps) {
           initial={false}
           animate={{ paddingTop: condensed ? 0 : 4 }}
           transition={reduced ? { duration: 0 } : springMove}
-          className="mx-auto flex w-full max-w-[86rem] items-center justify-between gap-3"
+            className="mx-auto flex w-full max-w-344 items-center justify-between gap-3"
         >
           {/* ------------------------------------------- Island 1: identity */}
           <motion.div
@@ -336,8 +336,16 @@ export default function AppNavbar({ session }: AppNavbarProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-[45] flex flex-col justify-end bg-canvas/85 px-5 pt-24 pb-[max(2rem,env(safe-area-inset-bottom))] backdrop-blur-2xl md:hidden"
+            className="fixed inset-0 z-45 flex flex-col justify-end bg-canvas/85 px-5 pt-24 pb-[max(2rem,env(safe-area-inset-bottom))] backdrop-blur-2xl md:hidden"
           >
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-label="Close navigation menu"
+              className="absolute right-5 top-[max(1.25rem,env(safe-area-inset-top))] flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink transition-colors hover:bg-well"
+            >
+              <Close size={18} />
+            </button>
             <motion.nav
               aria-label="Site"
               initial="hidden"

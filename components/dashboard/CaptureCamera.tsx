@@ -256,7 +256,7 @@ export default function CaptureCamera({
           aria-modal="true"
           aria-label="Capture a photograph"
           data-field="ink"
-          className="fixed inset-0 z-[60] flex flex-col"
+          className="fixed inset-0 z-60 flex flex-col"
         >
           {/* Chrome */}
           <div className="flex shrink-0 items-center justify-between gap-3 border-b border-rule px-4 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))]">
@@ -315,9 +315,9 @@ export default function CaptureCamera({
           </div>
 
           {/* Position read-out and shutter */}
-          <div className="shrink-0 border-t border-rule px-4 pt-4 pb-[max(2rem,env(safe-area-inset-bottom))]">
+          <div className="shrink-0 border-t border-rule px-4 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:pb-[max(2rem,env(safe-area-inset-bottom))]">
             <div className="mx-auto flex w-full max-w-md flex-col gap-4">
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex items-start gap-3 sm:items-center sm:justify-between">
                 <span className="flex min-w-0 items-center gap-2.5">
                   <span
                     className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
@@ -330,7 +330,7 @@ export default function CaptureCamera({
                     <span className="t-mark block text-ink-2">
                       {fix ? "Position locked" : "Locating"}
                     </span>
-                    <span className="t-num block truncate text-[0.6875rem] text-ink-3">
+                    <span className="t-num block wrap-break-word text-[0.6875rem] text-ink-3">
                       {fix
                         ? `${fix.latitude.toFixed(5)}, ${fix.longitude.toFixed(5)}${
                             accuracy ? ` · ${accuracy}` : ""
@@ -341,7 +341,7 @@ export default function CaptureCamera({
                 </span>
 
                 {cameraLabel ? (
-                  <span className="t-mark hidden shrink-0 text-ink-3 sm:block">
+                  <span className="t-mark max-w-[40%] shrink-0 text-right text-ink-3">
                     {cameraLabel}
                   </span>
                 ) : null}

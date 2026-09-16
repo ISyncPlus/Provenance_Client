@@ -13,6 +13,7 @@ import type { PointerEvent as ReactPointerEvent, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { project, rubberband, springSheet } from "../../lib/motion";
 import { useReducedTransparency } from "../../lib/useMediaQuery";
+import { Close } from "./icons";
 
 type SheetProps = {
   open: boolean;
@@ -243,7 +244,7 @@ export default function Sheet({
         style={{ y, opacity: reduced ? fade : 1 }}
         className="material relative flex max-h-[88vh] w-full max-w-2xl flex-col overflow-hidden rounded-t-xl border-t border-material-edge shadow-sheet outline-none backdrop-blur-2xl backdrop-saturate-[180%] sm:mb-4 sm:rounded-xl sm:border"
       >
-        <div
+          <div
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={endDrag}
@@ -252,12 +253,20 @@ export default function Sheet({
         >
           <div className="mx-auto h-1 w-9 rounded-full bg-line-strong" />
           <div className="mt-4 flex items-start justify-between gap-4">
-            <div className="min-w-0">
-              <h2 className="t-title-2 on-material truncate text-ink">{title}</h2>
-              {subtitle ? (
-                <p className="t-footnote mt-1 truncate text-ink-2">{subtitle}</p>
-              ) : null}
-            </div>
+              <div className="min-w-0">
+                <h2 className="t-title-2 on-material truncate text-ink">{title}</h2>
+                {subtitle ? (
+                  <p className="t-footnote mt-1 truncate text-ink-2">{subtitle}</p>
+                ) : null}
+              </div>
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label="Close submission details"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line text-ink-2 transition-colors hover:bg-well hover:text-ink"
+              >
+                <Close size={17} />
+              </button>
           </div>
         </div>
 
