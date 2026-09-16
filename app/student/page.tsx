@@ -209,6 +209,13 @@ export default function StudentDashboard() {
             device: provenance.capture.cameraLabel
               ? `In-app camera · ${provenance.capture.cameraLabel}`
               : "In-app camera",
+            gps: provenance.capture.fix
+              ? {
+                  latitude: provenance.capture.fix.latitude,
+                  longitude: provenance.capture.fix.longitude,
+                }
+              : extracted.gps,
+            gpsTagsPresent: Boolean(provenance.capture.fix),
           }
         : extracted;
 
@@ -363,7 +370,7 @@ export default function StudentDashboard() {
                 </div>
               ))}
             </div>
-            <div className="mx-auto mt-4 grid w-full max-w-md gap-6 sm:max-w-xl lg:max-w-none lg:grid-cols-12">
+            <div className="mt-4 grid w-full min-w-0 max-w-full gap-6 lg:grid-cols-12">
               <div className="shimmer h-96 rounded-lg bg-well lg:col-span-7" />
               <div className="shimmer h-96 rounded-lg bg-well lg:col-span-5" />
             </div>
@@ -432,59 +439,60 @@ export default function StudentDashboard() {
         }
       />
 
-      <Field pad="md" className="px-2 sm:px-4 lg:px-0">
-        {/* Deliberately off-balance: the bench takes the larger share, because
-            checking a photograph is the task and the history is the reference
-            beside it. On mobile, constrain to a clean, comfortable reading measure
-            so the cards never feel blown out or edge-to-edge. */}
-        <div className="mx-auto grid w-full max-w-md gap-6 sm:max-w-xl lg:max-w-none lg:grid-cols-12 lg:gap-8">
-          <Reveal index={2} mode="scroll" className="w-full lg:col-span-7">
-            <SubmitWorkspace
-              phase={phase}
-              previewUrl={previewUrl}
-              fileName={fileName}
-              step={step}
-              error={error}
-              entry={entry}
-              duplicateOfOtherUser={duplicateOfOtherUser}
-              offlineNotice={offlineNotice}
-              onFile={(file) => void handleFile(file)}
-              onCapture={() => setCameraOpen(true)}
-              attachPosition={attachPosition}
-              onAttachPositionChange={setAttachPosition}
-              onReset={reset}
-              onReport={() => entry && openPrintableReport(buildEntryReportHtml(entry))}
-            />
-          </Reveal>
+      <Field bleed pad="md">
+        <div className="bleed-inner">
+          {/* Deliberately off-balance: the bench takes the larger share, because
+              checking a photograph is the task and the history is the reference
+              beside it. bleed + bleed-inner guarantees exact alignment with the
+              header readings and prevents horizontal clipping on any mobile viewport. */}
+          <div className="grid w-full min-w-0 max-w-full gap-6 lg:grid-cols-12 lg:gap-8">
+            <Reveal index={2} mode="scroll" className="w-full min-w-0 max-w-full lg:col-span-7">
+              <SubmitWorkspace
+                phase={phase}
+                previewUrl={previewUrl}
+                fileName={fileName}
+                step={step}
+                error={error}
+                entry={entry}
+                duplicateOfOtherUser={duplicateOfOtherUser}
+                offlineNotice={offlineNotice}
+                onFile={(file) => void handleFile(file)}
+                onCapture={() => setCameraOpen(true)}
+                attachPosition={attachPosition}
+                onAttachPositionChange={setAttachPosition}
+                onReset={reset}
+                onReport={() => entry && openPrintableReport(buildEntryReportHtml(entry))}
+              />
+            </Reveal>
 
-          <Reveal index={3} mode="scroll" className="w-full lg:col-span-5">
-            <Card
-              mark="File 02"
-              title="Your submissions"
-              subtitle={(stats?.total ?? 0) === 1 ? "1 record" : `${stats?.total ?? 0} records`}
-              flush
-              actions={
-                submissions.length > 0 ? (
-                  <Button
-                    size="sm"
-                    variant="quiet"
-                    onClick={() =>
-                      openPrintableReport(buildSummaryReportHtml(submissions))
-                    }
-                  >
-                    <Doc size={14} />
-                    Summary
-                  </Button>
-                ) : null
-              }
-              /* The capped, independently-scrolling body is a desktop
-                 affordance: it keeps the list beside the bench instead of
-                 running past it. On a phone the two are stacked, so a nested
-                 scroller inside a scrolling page just traps the gesture and
-                 hides records behind an edge with no visible scrollbar — the
-                 list simply runs its full length there. */
-              bodyClassName="px-3 py-3 lg:max-h-[34rem] lg:overflow-y-auto"
-            >
+            <Reveal index={3} mode="scroll" className="w-full min-w-0 max-w-full lg:col-span-5">
+              <Card
+                mark="File 02"
+                title="Your submissions"
+                subtitle={(stats?.total ?? 0) === 1 ? "1 record" : `${stats?.total ?? 0} records`}
+                flush
+                actions={
+                  submissions.length > 0 ? (
+                    <Button
+                      size="sm"
+                      variant="quiet"
+                      onClick={() =>
+                        openPrintableReport(buildSummaryReportHtml(submissions))
+                      }
+                    >
+                      <Doc size={14} />
+                      Summary
+                    </Button>
+                  ) : null
+                }
+                /* The capped, independently-scrolling body is a desktop
+                   affordance: it keeps the list beside the bench instead of
+                   running past it. On a phone the two are stacked, so a nested
+                   scroller inside a scrolling page just traps the gesture and
+                   hides records behind an edge with no visible scrollbar — the
+                   list simply runs its full length there. */
+                bodyClassName="px-3 py-3 lg:max-h-[34rem] lg:overflow-y-auto"
+              >
               {listError && submissions.length === 0 ? (
                 <p className="t-footnote flex items-start gap-2 rounded-sm border-l-2 border-bad bg-bad-wash px-3.5 py-2.5 text-bad">
                   <Alert size={14} className="mt-0.5 shrink-0" />
@@ -522,7 +530,8 @@ export default function StudentDashboard() {
             </Card>
           </Reveal>
         </div>
-      </Field>
+      </div>
+    </Field>
 
       <CaptureCamera
         open={cameraOpen}

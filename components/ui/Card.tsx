@@ -46,18 +46,18 @@ export default function Card({
       }`}
     >
       {title || actions || mark ? (
-        <header className="flex flex-wrap items-start justify-between gap-3 border-b border-rule bg-surface-2/50 px-4 py-3.5 sm:px-5 sm:py-4 max-sm:text-center max-sm:justify-center">
-          <div className="min-w-0 max-sm:w-full">
+        <header className="flex flex-wrap items-start justify-between gap-3 border-b border-rule bg-surface-2/50 px-4 py-3.5 sm:px-5 sm:py-4">
+          <div className="min-w-0 flex-1">
             {mark ? (
               <p className="t-mark mb-1 text-accent-deep">{mark}</p>
             ) : null}
-            {title ? <h2 className="t-title-3 text-ink">{title}</h2> : null}
+            {title ? <h2 className="t-title-3 truncate text-ink">{title}</h2> : null}
             {subtitle ? (
-              <p className="t-footnote mt-0.5 text-ink-2">{subtitle}</p>
+              <p className="t-footnote mt-0.5 text-pretty text-ink-2">{subtitle}</p>
             ) : null}
           </div>
           {actions ? (
-            <div className="flex shrink-0 flex-wrap items-center justify-center gap-2 max-sm:w-full">
+            <div className="flex shrink-0 flex-wrap items-center gap-2">
               {actions}
             </div>
           ) : null}
@@ -65,7 +65,7 @@ export default function Card({
       ) : null}
 
       <div
-        className={`min-h-0 min-w-0 flex-1 ${flush ? "" : "p-3.5 sm:p-5"} ${bodyClassName}`}
+        className={`min-h-0 min-w-0 max-w-full flex-1 ${flush ? "" : "p-3.5 sm:p-5"} ${bodyClassName}`}
       >
         {children}
       </div>
@@ -76,7 +76,7 @@ export default function Card({
 
   return (
     <div
-      className={`w-full min-w-0 rounded-[0.875rem] border border-line bg-well p-1.5 shadow-lift ${className}`}
+      className={`w-full min-w-0 max-w-full rounded-[0.875rem] border border-line bg-well p-1.5 shadow-lift ${className}`}
     >
       {card}
     </div>

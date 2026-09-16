@@ -602,10 +602,10 @@ export default function SubmitWorkspace({
                 ].map(([label, value]) => (
                   <div
                     key={label}
-                    className="flex items-start justify-between gap-6 py-2.5"
+                    className="flex items-start justify-between gap-4 py-2.5"
                   >
                     <dt className="t-mark shrink-0 text-ink-3">{label}</dt>
-                    <dd className="t-footnote text-right text-ink">{value}</dd>
+                    <dd className="t-footnote min-w-0 break-words text-right text-ink">{value}</dd>
                   </div>
                 ))}
                 <div className="py-2.5">

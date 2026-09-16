@@ -153,6 +153,25 @@ const LOCATION_EXTENSION = ["captureMode", "location"] as const;
  * it shows, so the student's certificate is complete either way.
  */
 export const createSubmission = async (input: CreateSubmissionInput) => {
+  const witnessedLocation =
+    input.captureMode === "witnessed" && input.location != null;
+
+  const normalizedMetadata = witnessedLocation
+    ? {
+        ...input.metadata,
+        latitude: input.metadata.latitude ?? input.location!.latitude,
+        longitude: input.metadata.longitude ?? input.location!.longitude,
+        gpsTagsPresent: true,
+        locationName:
+          input.metadata.locationName ?? input.location!.locationName,
+      }
+    : input.metadata;
+
+  const payload: CreateSubmissionInput = {
+    ...input,
+    metadata: normalizedMetadata,
+  };
+
   const send = (body: CreateSubmissionInput | Omit<CreateSubmissionInput, "captureMode" | "location">) =>
     request<{ submission: HistoryEntry; duplicateOfOtherUser: boolean }>(
       "/api/submissions",
@@ -160,28 +179,17 @@ export const createSubmission = async (input: CreateSubmissionInput) => {
     );
 
   try {
-    return await send(input);
+    return await send(payload);
   } catch (error) {
     const rejectedTheBody =
       error instanceof ApiError && (error.status === 400 || error.status === 422);
     const carriedExtension = LOCATION_EXTENSION.some(
-      (key) => input[key] != null
+      (key) => payload[key] != null
     );
     if (!rejectedTheBody || !carriedExtension) throw error;
 
-    const { captureMode: _mode, location, ...core } = input;
-    const legacyMetadata =
-      input.captureMode === "witnessed" && location
-        ? {
-            ...core.metadata,
-            latitude: location.latitude,
-            longitude: location.longitude,
-            gpsTagsPresent: true,
-            locationName: location.locationName ?? core.metadata.locationName,
-          }
-        : core.metadata;
-
-    return await send({ ...core, metadata: legacyMetadata });
+    const { captureMode: _mode, location: _location, ...core } = payload;
+    return await send(core);
   }
 };
 
